@@ -1,13 +1,11 @@
 <template>
   <v-app id="inspire">
-    <v-navigation-drawer
-      v-model="drawer"
-      app
-    >
+    <v-navigation-drawer v-model="drawer" app dark>
       <v-list dense>
-        <v-list-item link>
-           <v-img src="https://khalidit.com/wp-content/uploads/2020/05/khalidit.png" ></v-img>
+        <v-list-item link class="mb-3">
+          <v-img src="https://rappleslimited.com/assets/img/logo-light.png"></v-img>
         </v-list-item>
+        <hr />
 
         <v-list-item link>
           <v-list-item-action>
@@ -19,69 +17,45 @@
         </v-list-item>
         <v-list-item link>
           <v-list-item-action>
-            <v-icon>mdi-email</v-icon>
+            <v-icon>library_add</v-icon>
           </v-list-item-action>
           <v-list-item-content>
-            <v-list-item-title>Contact</v-list-item-title>
+            <v-list-item-title to="create">
+              Create New
+            </v-list-item-title>
           </v-list-item-content>
         </v-list-item>
       </v-list>
     </v-navigation-drawer>
 
-    <v-app-bar
-      app
-      color="indigo"
-      dark
-    >
+    <v-app-bar app color="indigo" dark>
       <v-app-bar-nav-icon @click.stop="drawer = !drawer"></v-app-bar-nav-icon>
       <v-toolbar-title>Application</v-toolbar-title>
     </v-app-bar>
 
     <v-main>
-      <v-container
-        class="fill-height"
-        fluid
-      >
-        <v-row
-          align="center"
-          justify="center"
-        >
+      <v-container class="fill-height" fluid>
+        <v-row align="center" justify="center">
           <v-col class="text-center">
-            <v-tooltip left>
-              <template v-slot:activator="{ on }">
-                <v-btn
-                  :href="source"
-                  icon
-                  large
-                  target="_blank"
-                  v-on="on"
-                >
-                  <v-icon large>mdi-code-tags</v-icon>
-                </v-btn>
-              </template>
-              <span>Source</span>
-            </v-tooltip>
+            <router-view></router-view>
           </v-col>
         </v-row>
       </v-container>
     </v-main>
-    <v-footer
-      color="indigo"
-      app
-    >
+    <v-footer color="indigo" app>
       <span class="white--text">&copy; {{ new Date().getFullYear() }}</span>
     </v-footer>
   </v-app>
 </template>
 
 <script>
-  export default {
-    props: {
-      source: String,
-    },
+export default {
+  props: {
+    source: String
+  },
 
-    data: () => ({
-      drawer: null,
-    }),
-  }
+  data: () => ({
+    drawer: null
+  })
+};
 </script>

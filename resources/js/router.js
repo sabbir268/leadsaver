@@ -1,12 +1,17 @@
 import Vue from 'vue'
 import VueRouter from 'vue-router'
+import leadFrom from "./components/leadForm.vue"
 
 Vue.use(VueRouter)
 
 
 
-const routes = [
 
+const routes = [
+    {
+        path: '/create',
+        component: leadFrom
+    },
 ]
 
 

@@ -27,6 +27,7 @@
     "dependencies": {
         "axios": "^0.19.2",
         "material-design-icons-iconfont": "^5.0.1",
+        "vee-validate": "^3.3.7",
         "vue-clickaway": "^2.2.2",
         "vue-router": "^3.1.5",
         "vuetify": "^2.2.6"
