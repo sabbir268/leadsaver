@@ -1,88 +1,72 @@
 <template>
-  <ValidationObserver ref="observer" v-slot="{ validate, reset }">
-    <form>
-      <ValidationProvider v-slot="{ errors }" name="Name" rules="required|max:10">
-        <v-text-field v-model="name" :counter="10" :error-messages="errors" label="Name" required></v-text-field>
-      </ValidationProvider>
-      <ValidationProvider v-slot="{ errors }" name="email" rules="required|email">
-        <v-text-field v-model="email" :error-messages="errors" label="E-mail" required></v-text-field>
-      </ValidationProvider>
-      <ValidationProvider v-slot="{ errors }" name="select" rules="required">
-        <v-select
-          v-model="select"
-          :items="items"
-          :error-messages="errors"
-          label="Select"
-          data-vv-name="select"
-          required
-        ></v-select>
-      </ValidationProvider>
-      <ValidationProvider v-slot="{ errors, valid }" rules="required" name="checkbox">
-        <v-checkbox
-          v-model="checkbox"
-          :error-messages="errors"
-          value="1"
-          label="Option"
-          type="checkbox"
-          required
-        ></v-checkbox>
-      </ValidationProvider>
-
-      <v-btn class="mr-4" @click="submit">submit</v-btn>
-      <v-btn @click="clear">clear</v-btn>
-    </form>
-  </ValidationObserver>
+  <v-row justify="center">
+    <v-col cols="12" md="9">
+      <v-card class="mx-auto p-3">
+        <form action>
+          <v-text-field label="Name of the leads" v-model="name" required>
+            <v-icon slot="prepend">article</v-icon>
+          </v-text-field>
+          <v-file-input v-model="file" label="CSV File" @change="handleFileUpload()"></v-file-input>
+          <v-progress-linear
+            v-if="isLoading"
+            color="primary accent-4"
+            indeterminate
+            rounded
+            height="30"
+          >
+          Saving leads data......
+          </v-progress-linear>
+          <v-row justify="end" class="pr-4 pt-2">
+            <v-btn depressed class color="primary" @click="submitFile()">Submit</v-btn>
+          </v-row>
+        </form>
+      </v-card>
+    </v-col>
+  </v-row>
 </template>
 
 <script>
-import { required, email, max } from "vee-validate/dist/rules";
-import {
-  extend,
-  ValidationObserver,
-  ValidationProvider,
-  setInteractionMode
-} from "vee-validate";
-
-setInteractionMode("eager");
-
-extend("required", {
-  ...required,
-  message: "{_field_} can not be empty"
-});
-
-extend("max", {
-  ...max,
-  message: "{_field_} may not be greater than {length} characters"
-});
-
-extend("email", {
-  ...email,
-  message: "Email must be valid"
-});
-
 export default {
-  components: {
-    ValidationProvider,
-    ValidationObserver
-  },
   data: () => ({
-    name: "",
-    email: "",
-    select: null,
-    items: ["Item 1", "Item 2", "Item 3", "Item 4"],
-    checkbox: null
+    name: null,
+    file: null,
+    isLoading: false
   }),
 
   methods: {
-    submit() {
-      this.$refs.observer.validate();
+    submitFile() {
+      let vm = this;
+      vm.isLoading = true;
+      let formData = new FormData();
+      formData.append("file", this.file);
+      formData.append("name", this.name);
+      axios
+        .post("/api/sheet", formData, {
+          headers: {
+            "Content-Type": "multipart/form-data"
+          }
+        })
+        .then(function(res) {
+          if (res.data.status == "success") {
+            vm.isLoading = false;
+            vm.name = null;
+            vm.file = null;
+          }
+          console.log("SUCCESS!!");
+        })
+        .catch(function() {
+          console.log("FAILURE!!");
+        });
     },
+
+    handleFileUpload() {
+      console.log(this.file);
+      //this.file = this.$refs.file.file[0];
+    },
+
     clear() {
-      this.name = "";
-      this.email = "";
-      this.select = null;
-      this.checkbox = null;
-      this.$refs.observer.reset();
+      this.name = null;
+      this.file = null;
     }
   }
 };

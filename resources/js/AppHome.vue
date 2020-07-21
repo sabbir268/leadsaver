@@ -7,7 +7,7 @@
         </v-list-item>
         <hr />
 
-        <v-list-item link>
+        <v-list-item to="/" link>
           <v-list-item-action>
             <v-icon>mdi-home</v-icon>
           </v-list-item-action>
@@ -15,14 +15,12 @@
             <v-list-item-title>Home</v-list-item-title>
           </v-list-item-content>
         </v-list-item>
-        <v-list-item link>
+        <v-list-item to="/create" link>
           <v-list-item-action>
             <v-icon>library_add</v-icon>
           </v-list-item-action>
           <v-list-item-content>
-            <v-list-item-title to="create">
-              Create New
-            </v-list-item-title>
+            <v-list-item-title>Create New</v-list-item-title>
           </v-list-item-content>
         </v-list-item>
       </v-list>
@@ -34,7 +32,7 @@
     </v-app-bar>
 
     <v-main>
-      <v-container class="fill-height" fluid>
+      <v-container  fluid>
         <v-row align="center" justify="center">
           <v-col class="text-center">
             <router-view></router-view>
@@ -59,3 +57,12 @@ export default {
   })
 };
 </script>
+
+<style>
+a.v-list-item--link {
+  text-decoration: none;
+}
+.w-100{
+  width: 100% !important;
+}
+</style>

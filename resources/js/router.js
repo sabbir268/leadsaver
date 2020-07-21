@@ -1,6 +1,7 @@
 import Vue from 'vue'
 import VueRouter from 'vue-router'
-import leadFrom from "./components/leadForm.vue"
+import LeadFrom from "./components/LeadForm.vue"
+import LeadOverView from "./components/LeadOverView.vue"
 
 Vue.use(VueRouter)
 
@@ -9,8 +10,12 @@ Vue.use(VueRouter)
 
 const routes = [
     {
+        path: '/',
+        component: LeadOverView
+    },
+    {
         path: '/create',
-        component: leadFrom
+        component: LeadFrom
     },
 ]
 
