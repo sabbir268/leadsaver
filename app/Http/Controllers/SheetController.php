@@ -12,7 +12,7 @@ class SheetController extends Controller
 
     public function index()
     {
-        return Sheet::paginate(50);
+        return Sheet::orderBy('id','DESC')->paginate(20);
     }
 
     public function store(Request $request)
@@ -50,7 +50,7 @@ class SheetController extends Controller
 
     public function leadStore($file, $sheet_id)
     {
-        
+
         $file = public_path('storage/' . $file);
         $customerArr = csvToArray($file);
         // return dd($customerArr[1]['source_link']);

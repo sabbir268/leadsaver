@@ -4,6 +4,7 @@
       <v-list dense>
         <v-list-item link class="mb-3">
           <v-img src="https://rappleslimited.com/assets/img/logo-light.png"></v-img>
+          <!-- <v-img src="https://khalidit.com/wp-content/uploads/2020/05/khalidit.png"></v-img> -->
         </v-list-item>
         <hr />
 
@@ -15,12 +16,12 @@
             <v-list-item-title>Home</v-list-item-title>
           </v-list-item-content>
         </v-list-item>
-        <v-list-item to="/create" link>
+        <v-list-item to="/sheets" link>
           <v-list-item-action>
             <v-icon>library_add</v-icon>
           </v-list-item-action>
           <v-list-item-content>
-            <v-list-item-title>Create New</v-list-item-title>
+            <v-list-item-title>Sheets</v-list-item-title>
           </v-list-item-content>
         </v-list-item>
       </v-list>
@@ -32,7 +33,7 @@
     </v-app-bar>
 
     <v-main>
-      <v-container  fluid>
+      <v-container fluid>
         <v-row align="center" justify="center">
           <v-col class="text-center">
             <router-view></router-view>
@@ -62,7 +63,7 @@ export default {
 a.v-list-item--link {
   text-decoration: none;
 }
-.w-100{
+.w-100 {
   width: 100% !important;
 }
 </style>

@@ -1,7 +1,5 @@
 <?php
 
-
-
 /*
 |--------------------------------------------------------------------------
 | API Routes
@@ -18,3 +16,4 @@
 // });
 
 Route::resource('sheet', 'SheetController')->except('show', 'edit', 'update');
+Route::resource('lead', 'LeadController')->except('show', 'edit', 'update', 'store');
