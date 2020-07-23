@@ -2210,6 +2210,9 @@ function _arrayLikeToArray(arr, len) { if (len == null || len > arr.length) len 
 //
 //
 //
+//
+//
+//
 /* harmony default export */ __webpack_exports__["default"] = ({
   data: function data() {
     return {
@@ -2221,7 +2224,11 @@ function _arrayLikeToArray(arr, len) { if (len == null || len > arr.length) len 
       total: 0,
       filter: {
         tags: "",
-        items: ""
+        items: "",
+        title: "",
+        city: "",
+        state: "",
+        country: ""
       }
     };
   },
@@ -2250,6 +2257,19 @@ function _arrayLikeToArray(arr, len) { if (len == null || len > arr.length) len 
     removeTag: function removeTag(item) {
       this.filter.tags.splice(this.filter.tags.indexOf(item), 1);
       this.filter.tags = _toConsumableArray(this.filter.tags);
+    },
+    search: function search() {
+      axios.post("/api/lead/search", {
+        tag: this.filter.tags,
+        title: this.filter.title,
+        city: this.filter.city,
+        state: this.filter.state,
+        country: this.filter.country
+      }).then(function (res) {
+        console.log(res);
+      })["catch"](function (err) {
+        console.log(err);
+      });
     }
   },
   created: function created() {
@@ -38991,7 +39011,18 @@ var render = function() {
                         { attrs: { cols: "12", md: "2" } },
                         [
                           _c("v-text-field", {
-                            attrs: { label: "Title", required: "" }
+                            attrs: {
+                              label: "Title",
+                              clearable: "",
+                              required: ""
+                            },
+                            model: {
+                              value: _vm.filter.title,
+                              callback: function($$v) {
+                                _vm.$set(_vm.filter, "title", $$v)
+                              },
+                              expression: "filter.title"
+                            }
                           })
                         ],
                         1
@@ -38999,7 +39030,7 @@ var render = function() {
                       _vm._v(" "),
                       _c(
                         "v-col",
-                        { attrs: { cols: "12", md: "4" } },
+                        { attrs: { cols: "12", md: "3" } },
                         [
                           _c("v-combobox", {
                             staticStyle: {
@@ -39064,7 +39095,18 @@ var render = function() {
                         { attrs: { cols: "12", md: "2" } },
                         [
                           _c("v-text-field", {
-                            attrs: { label: "City", required: "" }
+                            attrs: {
+                              label: "City",
+                              clearable: "",
+                              required: ""
+                            },
+                            model: {
+                              value: _vm.filter.city,
+                              callback: function($$v) {
+                                _vm.$set(_vm.filter, "city", $$v)
+                              },
+                              expression: "filter.city"
+                            }
                           })
                         ],
                         1
@@ -39075,7 +39117,18 @@ var render = function() {
                         { attrs: { cols: "12", md: "2" } },
                         [
                           _c("v-text-field", {
-                            attrs: { label: "State", required: "" }
+                            attrs: {
+                              label: "State",
+                              clearable: "",
+                              required: ""
+                            },
+                            model: {
+                              value: _vm.filter.state,
+                              callback: function($$v) {
+                                _vm.$set(_vm.filter, "state", $$v)
+                              },
+                              expression: "filter.state"
+                            }
                           })
                         ],
                         1
@@ -39086,8 +39139,44 @@ var render = function() {
                         { attrs: { cols: "12", md: "2" } },
                         [
                           _c("v-text-field", {
-                            attrs: { label: "Country", required: "" }
+                            attrs: {
+                              label: "Country",
+                              clearable: "",
+                              required: ""
+                            },
+                            model: {
+                              value: _vm.filter.country,
+                              callback: function($$v) {
+                                _vm.$set(_vm.filter, "country", $$v)
+                              },
+                              expression: "filter.country"
+                            }
                           })
+                        ],
+                        1
+                      ),
+                      _vm._v(" "),
+                      _c(
+                        "v-col",
+                        { attrs: { cols: "12", md: "1" } },
+                        [
+                          _c(
+                            "v-btn",
+                            {
+                              staticClass: "success",
+                              attrs: { clearable: "" },
+                              on: {
+                                click: function($event) {
+                                  return _vm.search()
+                                }
+                              }
+                            },
+                            [
+                              _c("v-icon", [_vm._v("search")]),
+                              _vm._v(" Search")
+                            ],
+                            1
+                          )
                         ],
                         1
                       )

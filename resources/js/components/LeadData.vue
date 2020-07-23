@@ -5,11 +5,10 @@
         <v-container>
           <v-row>
             <v-col cols="12" md="2">
-              <v-text-field label="Title" required></v-text-field>
+              <v-text-field label="Title" clearable v-model="filter.title" required ></v-text-field>
             </v-col>
 
-            <v-col cols="12" md="4">
-              <!-- <v-text-field label="Tags" required></v-text-field> -->
+            <v-col cols="12" md="3">
               <v-combobox
                 v-model="filter.tags"
                 :items="items"
@@ -34,15 +33,19 @@
             </v-col>
 
             <v-col cols="12" md="2">
-              <v-text-field label="City" required></v-text-field>
+              <v-text-field label="City" clearable v-model="filter.city" required></v-text-field>
             </v-col>
 
             <v-col cols="12" md="2">
-              <v-text-field label="State" required></v-text-field>
+              <v-text-field label="State" clearable v-model="filter.state" required></v-text-field>
             </v-col>
 
             <v-col cols="12" md="2">
-              <v-text-field label="Country" required></v-text-field>
+              <v-text-field label="Country" clearable v-model="filter.country" required></v-text-field>
+            </v-col>
+
+            <v-col cols="12" md="1">
+              <v-btn class="success" clearable @click="search()"> <v-icon>search</v-icon> Search</v-btn>
             </v-col>
           </v-row>
         </v-container>
@@ -141,7 +144,14 @@ export default {
     length: 1,
     perPage: 0,
     total: 0,
-    filter: { tags: "", items: "" }
+    filter: {
+      tags: "",
+      items: "",
+      title: "",
+      city: "",
+      state: "",
+      country: ""
+    }
   }),
 
   watch: {
@@ -173,6 +183,23 @@ export default {
     removeTag(item) {
       this.filter.tags.splice(this.filter.tags.indexOf(item), 1);
       this.filter.tags = [...this.filter.tags];
+    },
+
+    search() {
+      axios
+        .post("/api/lead/search", {
+          tag: this.filter.tags,
+          title: this.filter.title,
+          city: this.filter.city,
+          state: this.filter.state,
+          country: this.filter.country
+        })
+        .then(res => {
+          console.log(res);
+        })
+        .catch(err => {
+          console.log(err);
+        });
     }
   },
 

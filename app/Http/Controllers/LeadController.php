@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Lead;
+use Illuminate\Http\Request;
 
 class LeadController extends Controller
 {
@@ -14,6 +15,33 @@ class LeadController extends Controller
     public function index()
     {
         return Lead::orderBy('id', 'DESC')->paginate(20);
+    }
+
+    public function search(Request $request)
+    {
+        $leads = Lead::orderBy('id', 'DESC');
+        if ($request->has('title') && $request->title != '') {
+            $leads->orWhere('title', 'like', $request->title);
+        }
+
+        if ($request->has('tag') && $request->tag != '') {
+            $tags = \implode(",", $request->tag);
+            $leads->orWhere('tag', 'like', $tags);
+        }
+
+        if ($request->has('city') && $request->city != '') {
+            $leads->orWhere('city', 'like', $request->city);
+        }
+
+        if ($request->has('state') && $request->state != '') {
+            $leads->orWhere('state', 'like', $request->state);
+        }
+
+        if ($request->has('country') && $request->country != '') {
+            $leads->orWhere('country', 'like', $request->country);
+        }
+
+        return $leads->paginate(20);
     }
 
     /**
