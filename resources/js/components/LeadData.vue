@@ -5,7 +5,7 @@
         <v-container>
           <v-row>
             <v-col cols="12" md="2">
-              <v-text-field label="Title" clearable v-model="filter.title" required ></v-text-field>
+              <v-text-field label="Title" clearable v-model="filter.title" required></v-text-field>
             </v-col>
 
             <v-col cols="12" md="3">
@@ -45,7 +45,9 @@
             </v-col>
 
             <v-col cols="12" md="1">
-              <v-btn class="success" clearable @click="search()"> <v-icon>search</v-icon> Search</v-btn>
+              <v-btn class="success" clearable @click="search()">
+                <v-icon>search</v-icon>Search
+              </v-btn>
             </v-col>
           </v-row>
         </v-container>
@@ -186,6 +188,7 @@ export default {
     },
 
     search() {
+      this.isLoading = true;
       axios
         .post("/api/lead/search", {
           tag: this.filter.tags,
@@ -195,7 +198,13 @@ export default {
           country: this.filter.country
         })
         .then(res => {
-          console.log(res);
+          this.leads = res.data.data;
+          this.page = res.data.current_page;
+          this.length = res.data.total / res.data.per_page;
+          this.total = res.data.total;
+          this.perPage = res.data.per_page;
+
+          this.isLoading = false;
         })
         .catch(err => {
           console.log(err);

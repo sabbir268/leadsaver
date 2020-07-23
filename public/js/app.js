@@ -2213,6 +2213,8 @@ function _arrayLikeToArray(arr, len) { if (len == null || len > arr.length) len 
 //
 //
 //
+//
+//
 /* harmony default export */ __webpack_exports__["default"] = ({
   data: function data() {
     return {
@@ -2259,6 +2261,9 @@ function _arrayLikeToArray(arr, len) { if (len == null || len > arr.length) len 
       this.filter.tags = _toConsumableArray(this.filter.tags);
     },
     search: function search() {
+      var _this2 = this;
+
+      this.isLoading = true;
       axios.post("/api/lead/search", {
         tag: this.filter.tags,
         title: this.filter.title,
@@ -2266,7 +2271,12 @@ function _arrayLikeToArray(arr, len) { if (len == null || len > arr.length) len 
         state: this.filter.state,
         country: this.filter.country
       }).then(function (res) {
-        console.log(res);
+        _this2.leads = res.data.data;
+        _this2.page = res.data.current_page;
+        _this2.length = res.data.total / res.data.per_page;
+        _this2.total = res.data.total;
+        _this2.perPage = res.data.per_page;
+        _this2.isLoading = false;
       })["catch"](function (err) {
         console.log(err);
       });
@@ -39173,7 +39183,7 @@ var render = function() {
                             },
                             [
                               _c("v-icon", [_vm._v("search")]),
-                              _vm._v(" Search")
+                              _vm._v("Search\n            ")
                             ],
                             1
                           )

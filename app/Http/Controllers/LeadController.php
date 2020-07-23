@@ -21,24 +21,24 @@ class LeadController extends Controller
     {
         $leads = Lead::orderBy('id', 'DESC');
         if ($request->has('title') && $request->title != '') {
-            $leads->orWhere('title', 'like', $request->title);
+            $leads->where('title', 'like', $request->title);
         }
 
         if ($request->has('tag') && $request->tag != '') {
-            $tags = \implode(",", $request->tag);
-            $leads->orWhere('tag', 'like', $tags);
+            $tags = implode(",", $request->tag);
+            $leads->where('tag', 'like', $tags);
         }
 
         if ($request->has('city') && $request->city != '') {
-            $leads->orWhere('city', 'like', $request->city);
+            $leads->where('city', 'like', $request->city);
         }
 
         if ($request->has('state') && $request->state != '') {
-            $leads->orWhere('state', 'like', $request->state);
+            $leads->where('state', 'like', $request->state);
         }
 
         if ($request->has('country') && $request->country != '') {
-            $leads->orWhere('country', 'like', $request->country);
+            $leads->where('country', 'like', $request->country);
         }
 
         return $leads->paginate(20);
