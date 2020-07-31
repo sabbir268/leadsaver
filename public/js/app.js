@@ -2215,6 +2215,13 @@ function _arrayLikeToArray(arr, len) { if (len == null || len > arr.length) len 
 //
 //
 //
+//
+//
+//
+//
+//
+//
+//
 /* harmony default export */ __webpack_exports__["default"] = ({
   data: function data() {
     return {
@@ -2277,6 +2284,27 @@ function _arrayLikeToArray(arr, len) { if (len == null || len > arr.length) len 
         _this2.total = res.data.total;
         _this2.perPage = res.data.per_page;
         _this2.isLoading = false;
+      })["catch"](function (err) {
+        console.log(err);
+      });
+    },
+    csv: function csv() {
+      var _this3 = this;
+
+      this.isLoading = true;
+      axios.post("/api/lead/csv", {
+        tag: this.filter.tags,
+        title: this.filter.title,
+        city: this.filter.city,
+        state: this.filter.state,
+        country: this.filter.country
+      }).then(function (res) {
+        // this.leads = res.data.data;
+        // this.page = res.data.current_page;
+        // this.length = res.data.total / res.data.per_page;
+        // this.total = res.data.total;
+        // this.perPage = res.data.per_page;
+        _this3.isLoading = false;
       })["catch"](function (err) {
         console.log(err);
       });
@@ -39013,6 +39041,37 @@ var render = function() {
               _c(
                 "v-container",
                 [
+                  _c(
+                    "v-row",
+                    [
+                      _c(
+                        "v-col",
+                        { attrs: { cols: "10", "offset-md": "9", md: "3" } },
+                        [
+                          _c(
+                            "v-btn",
+                            {
+                              staticClass: "success",
+                              staticStyle: { width: "100%" },
+                              on: {
+                                click: function($event) {
+                                  return _vm.csv()
+                                }
+                              }
+                            },
+                            [
+                              _c("v-icon", [_vm._v("cloud_download")]),
+                              _vm._v(" CSV Download\n            ")
+                            ],
+                            1
+                          )
+                        ],
+                        1
+                      )
+                    ],
+                    1
+                  ),
+                  _vm._v(" "),
                   _c(
                     "v-row",
                     [
@@ -99348,8 +99407,8 @@ __webpack_require__.r(__webpack_exports__);
 /*! no static exports found */
 /***/ (function(module, exports, __webpack_require__) {
 
-__webpack_require__(/*! E:\xampp\htdocs\leadsaver\resources\js\app.js */"./resources/js/app.js");
-module.exports = __webpack_require__(/*! E:\xampp\htdocs\leadsaver\resources\sass\app.scss */"./resources/sass/app.scss");
+__webpack_require__(/*! C:\xampp\htdocs\khalidit\leadsaver\resources\js\app.js */"./resources/js/app.js");
+module.exports = __webpack_require__(/*! C:\xampp\htdocs\khalidit\leadsaver\resources\sass\app.scss */"./resources/sass/app.scss");
 
 
 /***/ })

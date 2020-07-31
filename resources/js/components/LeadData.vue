@@ -4,6 +4,13 @@
       <v-card class="mx-auto p-3">
         <v-container>
           <v-row>
+            <v-col cols="10" offset-md="9" md="3">
+              <v-btn class="success"  style="width:100%;"  @click="csv()">
+                <v-icon>cloud_download</v-icon> CSV Download
+              </v-btn>
+            </v-col>
+          </v-row>
+          <v-row>
             <v-col cols="12" md="2">
               <v-text-field label="Title" clearable v-model="filter.title" required></v-text-field>
             </v-col>
@@ -152,14 +159,14 @@ export default {
       title: "",
       city: "",
       state: "",
-      country: ""
-    }
+      country: "",
+    },
   }),
 
   watch: {
-    page: function(newPage, oldPage) {
+    page: function (newPage, oldPage) {
       this.getLeads(this.page);
-    }
+    },
   },
 
   methods: {
@@ -167,7 +174,7 @@ export default {
       this.isLoading = true;
       axios
         .get(`/api/lead?${page > 0 ? "page=" + page : ""}`)
-        .then(res => {
+        .then((res) => {
           console.log(res);
           this.leads = res.data.data;
           this.page = res.data.current_page;
@@ -177,7 +184,7 @@ export default {
 
           this.isLoading = false;
         })
-        .catch(err => {
+        .catch((err) => {
           console.log(err);
         });
     },
@@ -195,9 +202,9 @@ export default {
           title: this.filter.title,
           city: this.filter.city,
           state: this.filter.state,
-          country: this.filter.country
+          country: this.filter.country,
         })
-        .then(res => {
+        .then((res) => {
           this.leads = res.data.data;
           this.page = res.data.current_page;
           this.length = res.data.total / res.data.per_page;
@@ -206,15 +213,39 @@ export default {
 
           this.isLoading = false;
         })
-        .catch(err => {
+        .catch((err) => {
           console.log(err);
         });
-    }
+    },
+
+    csv() {
+      this.isLoading = true;
+      axios
+        .post("/api/lead/csv", {
+          tag: this.filter.tags,
+          title: this.filter.title,
+          city: this.filter.city,
+          state: this.filter.state,
+          country: this.filter.country,
+        })
+        .then((res) => {
+          // this.leads = res.data.data;
+          // this.page = res.data.current_page;
+          // this.length = res.data.total / res.data.per_page;
+          // this.total = res.data.total;
+          // this.perPage = res.data.per_page;
+
+          this.isLoading = false;
+        })
+        .catch((err) => {
+          console.log(err);
+        });
+    },
   },
 
   created() {
     this.getLeads(this.page);
-  }
+  },
 };
 </script>
 

@@ -16,5 +16,6 @@
 // });
 
 Route::resource('sheet', 'SheetController')->except('show', 'edit', 'update');
-Route::resource('lead', 'LeadController')->except('show', 'edit', 'update', 'store','destroy');
+Route::resource('lead', 'LeadController')->except('show', 'edit', 'update', 'store', 'destroy');
 Route::post('lead/search', 'LeadController@search');
+Route::post('lead/csv', 'LeadController@csvDownload');

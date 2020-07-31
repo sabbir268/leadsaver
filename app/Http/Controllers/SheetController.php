@@ -53,7 +53,7 @@ class SheetController extends Controller
 
         $file = public_path('storage/' . $file);
         $customerArr = csvToArray($file);
-        // return dd($customerArr[1]['source_link']);
+        //return dd($customerArr);
         for ($i = 0; $i < count($customerArr); $i++) {
             $lead = new Lead();
             $lead->sheet_id = $sheet_id;
