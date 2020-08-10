@@ -93,7 +93,7 @@
                 <td class="text-left">
                   <a :href="item.source_link" target="_blank">Source Link...</a>
                 </td>
-                <td class="text-left">{{ item.company_Name }}</td>
+                <td class="text-left">{{ item.company_name }}</td>
                 <td class="text-left">{{ item.contact_name }}</td>
                 <td class="text-left">{{ item.first_name }}</td>
                 <td class="text-left">{{ item.last_name }}</td>
@@ -221,32 +221,27 @@ export default {
     csv() {
       this.isLoading = true;
       axios
-        .post(
-          "/api/lead/csv",
-          {
-            tag: this.filter.tags,
-            title: this.filter.title,
-            city: this.filter.city,
-            state: this.filter.state,
-            country: this.filter.country,
-          },
-          { responseType: "blob" }
-        )
+        .post("/api/lead/csv", {
+          tag: this.filter.tags,
+          title: this.filter.title,
+          city: this.filter.city,
+          state: this.filter.state,
+          country: this.filter.country,
+        })
         .then((res) => {
-          // this.leads = res.data.data;
-          // this.page = res.data.current_page;
-          // this.length = res.data.total / res.data.per_page;
-          // this.total = res.data.total;
-          // this.perPage = res.data.per_page;
+          console.log(res.data);
 
           // this.isLoading = false;
-          const url = window.URL.createObjectURL(new Blob([res.data.data]));
-          const link = document.createElement("a");
-          console.log(url);
-          link.href = url;
-          link.setAttribute("download", "file.csv");
-          document.body.appendChild(link);
-          link.click();
+          // const url = window.URL.createObjectURL(new Blob([res.data.data]));
+          // const link = document.createElement("a");
+          // console.log(url);
+          // link.href = url;
+          // link.setAttribute("download", "file.csv");
+          // document.body.appendChild(link);
+          // link.click();
+
+          window.location.href = res.data;
+          this.isLoading = false;
         })
         .catch((err) => {
           console.log(err);

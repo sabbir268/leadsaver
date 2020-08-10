@@ -17,7 +17,7 @@ class CreateLeadsTable extends Migration
             $table->id();
             $table->unsignedBigInteger('sheet_id');
             $table->text('source_link')->nullable();
-            $table->string('company_Name')->index()->nullable();
+            $table->string('company_name')->index()->nullable();
             $table->string('contact_name')->nullable();
             $table->string('first_name')->nullable();
             $table->string('last_name')->nullable();

@@ -2289,6 +2289,8 @@ function _arrayLikeToArray(arr, len) { if (len == null || len > arr.length) len 
       });
     },
     csv: function csv() {
+      var _this3 = this;
+
       this.isLoading = true;
       axios.post("/api/lead/csv", {
         tag: this.filter.tags,
@@ -2296,22 +2298,18 @@ function _arrayLikeToArray(arr, len) { if (len == null || len > arr.length) len 
         city: this.filter.city,
         state: this.filter.state,
         country: this.filter.country
-      }, {
-        responseType: "blob"
       }).then(function (res) {
-        // this.leads = res.data.data;
-        // this.page = res.data.current_page;
-        // this.length = res.data.total / res.data.per_page;
-        // this.total = res.data.total;
-        // this.perPage = res.data.per_page;
-        // this.isLoading = false;
-        var url = window.URL.createObjectURL(new Blob([res.data.data]));
-        var link = document.createElement("a");
-        console.log(url);
-        link.href = url;
-        link.setAttribute("download", "file.csv");
-        document.body.appendChild(link);
-        link.click();
+        console.log(res.data); // this.isLoading = false;
+        // const url = window.URL.createObjectURL(new Blob([res.data.data]));
+        // const link = document.createElement("a");
+        // console.log(url);
+        // link.href = url;
+        // link.setAttribute("download", "file.csv");
+        // document.body.appendChild(link);
+        // link.click();
+
+        window.location.href = res.data;
+        _this3.isLoading = false;
       })["catch"](function (err) {
         console.log(err);
       });
@@ -2333,8 +2331,6 @@ function _arrayLikeToArray(arr, len) { if (len == null || len > arr.length) len 
 
 "use strict";
 __webpack_require__.r(__webpack_exports__);
-//
-//
 //
 //
 //
@@ -2386,6 +2382,8 @@ __webpack_require__.r(__webpack_exports__);
           vm.file = null;
         }
 
+        alert("Success");
+        location.reload();
         console.log("SUCCESS!!");
       })["catch"](function () {
         console.log("FAILURE!!");
@@ -39394,7 +39392,7 @@ var render = function() {
                               ]),
                               _vm._v(" "),
                               _c("td", { staticClass: "text-left" }, [
-                                _vm._v(_vm._s(item.company_Name))
+                                _vm._v(_vm._s(item.company_name))
                               ]),
                               _vm._v(" "),
                               _c("td", { staticClass: "text-left" }, [
@@ -39621,7 +39619,7 @@ var render = function() {
                 ),
                 _vm._v(" "),
                 _c("v-file-input", {
-                  attrs: { label: "CSV File" },
+                  attrs: { label: "Excel(xlsx) File" },
                   on: {
                     change: function($event) {
                       return _vm.handleFileUpload()
@@ -39647,7 +39645,7 @@ var render = function() {
                           height: "30"
                         }
                       },
-                      [_vm._v("\n        Saving leads data......\n        ")]
+                      [_vm._v("Saving leads data......")]
                     )
                   : _vm._e(),
                 _vm._v(" "),
@@ -99414,8 +99412,8 @@ __webpack_require__.r(__webpack_exports__);
 /*! no static exports found */
 /***/ (function(module, exports, __webpack_require__) {
 
-__webpack_require__(/*! C:\xampp\htdocs\khalidit\leadsaver\resources\js\app.js */"./resources/js/app.js");
-module.exports = __webpack_require__(/*! C:\xampp\htdocs\khalidit\leadsaver\resources\sass\app.scss */"./resources/sass/app.scss");
+__webpack_require__(/*! E:\xampp\htdocs\leadsaver\resources\js\app.js */"./resources/js/app.js");
+module.exports = __webpack_require__(/*! E:\xampp\htdocs\leadsaver\resources\sass\app.scss */"./resources/sass/app.scss");
 
 
 /***/ })

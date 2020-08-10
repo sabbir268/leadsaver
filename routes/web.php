@@ -23,6 +23,8 @@ use Illuminate\Support\Facades\Route;
 
 Route::view('/', 'home');
 Route::view('/{any}', 'home');
+Route::get('lead/export/xlsx', 'LeadController@export');
+
 
 Route::get('/test', function () {
     $sheet = \App\Sheet::first();
