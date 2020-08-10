@@ -5,8 +5,8 @@
         <v-container>
           <v-row>
             <v-col cols="10" offset-md="9" md="3">
-              <v-btn class="success"  style="width:100%;"  @click="csv()">
-                <v-icon>cloud_download</v-icon> CSV Download
+              <v-btn class="success" style="width:100%;" @click="csv()">
+                <v-icon>cloud_download</v-icon>CSV Download
               </v-btn>
             </v-col>
           </v-row>
@@ -221,13 +221,17 @@ export default {
     csv() {
       this.isLoading = true;
       axios
-        .post("/api/lead/csv", {
-          tag: this.filter.tags,
-          title: this.filter.title,
-          city: this.filter.city,
-          state: this.filter.state,
-          country: this.filter.country,
-        })
+        .post(
+          "/api/lead/csv",
+          {
+            tag: this.filter.tags,
+            title: this.filter.title,
+            city: this.filter.city,
+            state: this.filter.state,
+            country: this.filter.country,
+          },
+          { responseType: "blob" }
+        )
         .then((res) => {
           // this.leads = res.data.data;
           // this.page = res.data.current_page;
@@ -235,7 +239,14 @@ export default {
           // this.total = res.data.total;
           // this.perPage = res.data.per_page;
 
-          this.isLoading = false;
+          // this.isLoading = false;
+          const url = window.URL.createObjectURL(new Blob([res.data.data]));
+          const link = document.createElement("a");
+          console.log(url);
+          link.href = url;
+          link.setAttribute("download", "file.csv");
+          document.body.appendChild(link);
+          link.click();
         })
         .catch((err) => {
           console.log(err);

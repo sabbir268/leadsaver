@@ -2289,8 +2289,6 @@ function _arrayLikeToArray(arr, len) { if (len == null || len > arr.length) len 
       });
     },
     csv: function csv() {
-      var _this3 = this;
-
       this.isLoading = true;
       axios.post("/api/lead/csv", {
         tag: this.filter.tags,
@@ -2298,13 +2296,22 @@ function _arrayLikeToArray(arr, len) { if (len == null || len > arr.length) len 
         city: this.filter.city,
         state: this.filter.state,
         country: this.filter.country
+      }, {
+        responseType: "blob"
       }).then(function (res) {
         // this.leads = res.data.data;
         // this.page = res.data.current_page;
         // this.length = res.data.total / res.data.per_page;
         // this.total = res.data.total;
         // this.perPage = res.data.per_page;
-        _this3.isLoading = false;
+        // this.isLoading = false;
+        var url = window.URL.createObjectURL(new Blob([res.data.data]));
+        var link = document.createElement("a");
+        console.log(url);
+        link.href = url;
+        link.setAttribute("download", "file.csv");
+        document.body.appendChild(link);
+        link.click();
       })["catch"](function (err) {
         console.log(err);
       });
@@ -39061,7 +39068,7 @@ var render = function() {
                             },
                             [
                               _c("v-icon", [_vm._v("cloud_download")]),
-                              _vm._v(" CSV Download\n            ")
+                              _vm._v("CSV Download\n            ")
                             ],
                             1
                           )
