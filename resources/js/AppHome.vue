@@ -1,10 +1,10 @@
 <template>
   <v-app id="inspire">
-    <v-navigation-drawer v-model="drawer" app dark>
+    <v-navigation-drawer v-model="drawer" app >
       <v-list dense>
         <v-list-item link class="mb-3">
-          <v-img src="https://rappleslimited.com/assets/img/logo-light.png"></v-img>
-          <!-- <v-img src="https://khalidit.com/wp-content/uploads/2020/05/khalidit.png"></v-img> -->
+          <!-- <v-img src="https://rappleslimited.com/assets/img/logo-light.png"></v-img> -->
+          <v-img src="https://khalidit.com/wp-content/uploads/2020/05/khalidit.png"></v-img>
         </v-list-item>
         <hr />
 
