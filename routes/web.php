@@ -21,15 +21,21 @@ use Illuminate\Support\Facades\Route;
 
 // Route::get('/home', 'HomeController@index')->name('home');
 
-Route::view('/', 'home');
-Route::view('/{any}', 'home');
-Route::get('lead/export/xlsx', 'LeadController@export');
+// Route::view('/', 'home');
+// Route::view('/{any}', 'home');
+// Route::get('lead/export/xlsx', 'LeadController@export');
 
+// Route::get('/test', function () {
+//     $sheet = \App\Sheet::first();
+//     $file = $sheet->file;
+//     $sc = new \App\Http\Controllers\SheetController();
 
-Route::get('/test', function () {
-    $sheet = \App\Sheet::first();
-    $file = $sheet->file;
-    $sc = new \App\Http\Controllers\SheetController();
+//     return $sc->leadStore($file, $sheet->id);
+// });
 
-    return $sc->leadStore($file, $sheet->id);
-});
+Route::get('/custom/logout/app', 'HomeController@clogout');
+
+Auth::routes();
+
+Route::get('/', 'HomeController@index')->name('home');
+Route::get('/home', 'HomeController@index');
