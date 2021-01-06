@@ -11,7 +11,7 @@
     },
     "devDependencies": {
         "@mdi/font": "^5.3.45",
-        "axios": "^0.19",
+        "axios": "^0.21",
         "bootstrap": "^4.0.0",
         "cross-env": "^7.0",
         "jquery": "^3.2",
@@ -25,7 +25,7 @@
         "vue-template-compiler": "^2.6.10"
     },
     "dependencies": {
-        "axios": "^0.19.2",
+        "axios": "^0.21.1",
         "material-design-icons-iconfont": "^5.0.1",
         "vee-validate": "^3.3.7",
         "vue-clickaway": "^2.2.2",
